@@ -16,7 +16,7 @@
 * Users of this class can expect to gain a solid understanding of SOQL in Apex and
 * be prepared to handle data retrieval tasks in Salesforce development.
 * 
-* @author Your Name
+* @author olabisi aruna
 */
 
 public with sharing class SOQL {
@@ -28,9 +28,11 @@ public with sharing class SOQL {
      * @return List of all leads with Id, LastName, Company, Phone, Email
      * Update the corresponding test class and testGetAllLeads method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
-    //  The body of the method
-    //}
+    public static List<Lead> getAllLeads() {
+      //The body of the method
+      List <Lead> allLeads = [SELECT Id, LastName, Company, Phone, Email FROM Lead];
+      return allLeads;
+    }
 
     /**
      * Question 2
@@ -39,9 +41,11 @@ public with sharing class SOQL {
      * @return A list of Contact records.
      * Update the corresponding test class and testGetContactsByFirstName method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
+    public static List<Contact> getContactsByFirstName () {
     //  The body of the method
-    //}
+    List<Contact> firstNameJohn = [SELECT Id, Name from Contact WHERE FirstName = 'John'];
+    return firstNameJohn;
+    }
 
     /**
      * Question 3
@@ -50,9 +54,11 @@ public with sharing class SOQL {
      * @return A list of Contact Ids.
      * Update the corresponding test class and testGetContactIdsByLastName method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
+    public static List<Contact> getContactIdsByLastName () {
     //  The body of the method
-    //}
+    List<Contact> contactIds = [SELECT Id FROM Contact WHERE LastName = 'Smith' OR LastName = 'Jones'];
+    return contactIds;
+    }
 
     /**
      * Question 4
@@ -63,9 +69,11 @@ public with sharing class SOQL {
      * @return A list of Opportunities with important opportunities fields
      * Update the corresponding test class and testGetClosedWonOpportunityCountByAccount method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
+    public static List<Opportunity> getClosedWonOpportunityCountByAccount (Id accountId) {
     //  The body of the method
-    //}
+    List<Opportunity> closedWonOpportunities = [SELECT Id, Name, Amount, StageName, AccountId FROM Opportunity WHERE StageName = 'Closed Won' AND AccountId = :accountId];
+    return closedWonOpportunities;
+    }
 
     /**
      * Question 5
@@ -74,9 +82,11 @@ public with sharing class SOQL {
      * @return The Integer count of Account records.
      * Update the corresponding test class and testGetAccountCount method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
+    public static Integer getAccountCount () {
     //  The body of the method
-    //}
+    Integer accountCount = [SELECT COUNT() FROM Account];
+     return accountCount;
+    }
 
     /**
      * Question 6
@@ -85,9 +95,13 @@ public with sharing class SOQL {
      * @return A map of Task Ids to Task records.
      * Update the corresponding test class and testGetTasksDueNextWeek method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
+    public static Map<Id, Task> getTasksDueNextWeek () {
     //  The body of the method
-    //}
+    Date today = Date.today();
+    Date sevenDaysFromNow = today.addDays(7);
+    Map<Id, Task> dueTasks = new Map<Id, Task>([SELECT Id, ActivityDate FROM Task WHERE ActivityDate >= :today AND ActivityDate <= :sevenDaysFromNow]);
+    return dueTasks;
+    }
 
     /**
      * Question 7
