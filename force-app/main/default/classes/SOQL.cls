@@ -76,7 +76,10 @@ public with sharing class SOQL {
      */
     //[public | private ] [static] data_type method_name (input parameters) {
     //  The body of the method
-    //}
+    Integer accountCount = Database.countQuery('SELECT COUNT() FROM Account');
+    //Integer numOfAccount = accountCount.size();
+     return accountCount;
+    }
 
     /**
      * Question 6
@@ -96,7 +99,7 @@ public with sharing class SOQL {
      * @return A list of Contact records.
      * Update the corresponding test class and testGetContactsByEmailDomain method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
+    public static List<Contact> getContactsByEmailDomain () {
     //  The body of the method
     //}
 
@@ -117,7 +120,8 @@ public with sharing class SOQL {
      * @return A list of Case records.
      */
     public static List<Case> getFilterCaseOrigins() {
-        return null; // Replace null with the variable you used to store the result
+    Case[] caseOriginFilter = [SELECT CaseNumber, Id FROM Case WHERE origin NOT IN ('Web','Email','')];
+        return caseOriginFilter; // Replace null with the variable you used to store the result
     }
 
     /**
@@ -130,7 +134,10 @@ public with sharing class SOQL {
      * @return A list of Lead records.
      * Update the corresponding test class and testGetLeadsBySourceOrTitle method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
+    public static List<Lead> getLeadsBySourceOrTitle (string leadSource, string titleKeyword) {
+        String searchKeyword = '%'+ titleKeyword +'%';
+        Lead[] leadSourceTitle = [SELECT Id, Name FROM Lead WHERE LeadSource = :leadSource OR Title LIKE :searchKeyword];
+        Return leadSourceTitle;
     //  The body of the method
     //}    
 
